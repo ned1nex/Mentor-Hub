@@ -1,0 +1,53 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: ubuntu:22.04
+  variables:
+    SSH_USER: "$ENV_SSH_USER"
+    SSH_HOST: "$ENV_SSH_HOST"
+    SSH_PRIVATE_KEY_BASE64: "$ENV_PRIVATE_KEY_BASE64"
+    PROJECT_DIR: "/home/$ENV_SSH_USER/app"
+
+  script:
+    # Обновляем пакеты и устанавливаем необходимые инструменты
+    - apt-get update -qq && apt-get install -y openssh-client git
+    - echo "$ENV_PRIVATE_KEY_BASE64" | base64 -d > private_key
+    - chmod 600 private_key
+    - |
+      ssh -o StrictHostKeyChecking=no -i private_key $SSH_USER@$SSH_HOST "
+        # Если каталог проекта существует, останавливаем контейнеры
+        if [ -d \"$PROJECT_DIR\" ]; then
+          cd \"$PROJECT_DIR\" &&
+          docker compose down || true;
+          cd ~
+        fi &&
+        
+        # Меняем владельца, если есть проблемы с правами
+        sudo chown -R $SSH_USER:$SSH_USER \"$PROJECT_DIR\" || true &&
+        
+        # Удаляем старую директорию
+        rm -rf \"$PROJECT_DIR\" || true &&
+        
+        # Создаем новую директорию
+        mkdir -p \"$PROJECT_DIR\" &&
+        cd \"$PROJECT_DIR\" &&
+        
+        # Клонируем репозиторий
+        git clone \"$CI_REPOSITORY_URL\" . &&
+        
+        # Запускаем приложение с docker compose
+        docker compose up -d --build
+
+        # Небольшая задержка для запуска контейнеров
+        sleep 5 &&
+        
+        # Выводим логи контейнеров в течение 30 секунд и завершаем команду
+        echo '==== Docker Compose Logs (30 sec) ====' &&
+        timeout 30 docker compose logs -f || true
+
+      "
+  only:
+    - master
+    - merge_requests
