@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-dotenv
+pydantic-settings
+pydantic[email]
+sqlalchemy
+psycopg2-binary
+redis
+qdrant-client
+bcrypt
+PyJWT
+requests
+icalendar

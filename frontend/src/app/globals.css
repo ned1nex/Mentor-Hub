@@ -1,0 +1,30 @@
+@import "@/src/assets/preflight.css";
+
+:root {
+    --background: oklch(0.145 0 0);
+    --bg-90: oklch(0.205 0 0);
+    --bg-80: oklch(0.269 0 0);
+    --bg-70: oklch(0.371 0 0);
+    --foreground: oklch(0.985 0 0);
+    --fg-alt: oklch(0.556 0 0);
+    --primary: #ff8c00;
+    --secondary: #ff6f00;
+    --tertiary: #ff8c001a;
+    --negative: oklch(0.637 0.237 25.331);
+    --positive: oklch(0.723 0.219 149.579);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --background: oklch(0.985 0 0);
+        --bg-90: oklch(0.97 0 0);
+        --bg-80: oklch(0.922 0 0);
+        --bg-70: oklch(0.87 0 0);
+        --foreground: oklch(0.145 0 0);
+    }
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+}

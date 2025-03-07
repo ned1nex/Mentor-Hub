@@ -1,0 +1,14 @@
+.username {
+    font-weight: bold;
+}
+
+.xp {
+    background-color: var(--primary);
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: 2rem;
+}
+
+.muted {
+    color: var(--fg-alt);
+}

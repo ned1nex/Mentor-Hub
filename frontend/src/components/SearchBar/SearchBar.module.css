@@ -1,0 +1,30 @@
+.searchBar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.input {
+    flex: 1;
+    padding: 12px;
+    background: var(--bg-90);
+    border: 1px solid var(--bg-70);
+    border-radius: 5px;
+    color: var(--foreground);
+    outline: none;
+}
+
+.searchBtn {
+    background: var(--primary);
+    color: var(--background);
+    border: none;
+    padding: 12px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.searchBtn:hover {
+    background: var(--primary);
+}

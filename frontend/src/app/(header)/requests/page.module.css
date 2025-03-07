@@ -1,0 +1,122 @@
+.wrapper {
+    /* Базовые стили обёртки, при необходимости можно добавить дополнительные правила */
+  }
+  
+  .container {
+    padding: 40px;
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .applicationsContainer {
+    margin-top: 40px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .applicationsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--primary);
+    text-align: center;
+  }
+  
+  .applicationItem {
+    background: var(--bg-90);
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .applicationDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .applicationTime {
+    font-size: 14px;
+    color: var(--fg-alt);
+  }
+  
+  .applicationQuestion {
+    font-size: 16px;
+  }
+  
+  .mentorLink {
+    text-decoration: none;
+    background: var(--primary);
+    color: var(--background);
+    padding: 10px 14px;
+    border-radius: 5px;
+    display: flex;
+    gap: 5px;
+    width: 40%;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .mentorLink:hover {
+    background: var(--secondary);
+    transform: scale(1.05);
+  }
+  
+  .mentorDetails {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .mentorName {
+    font-size: 14px;
+  }
+  
+  .applicationIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .mentorAvatar {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .expandBtn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    text-decoration: underline;
+  }
+  

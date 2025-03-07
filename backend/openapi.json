@@ -1,0 +1,1813 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/students/sign-up": {
+            "post": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "регистрация пользователя",
+                "operationId": "student_sign_up_api_students_sign_up_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Успешная регистрация студента",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StudentRegisterStatus"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Студент уже был зарегистрирован"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/students/sign-in": {
+            "post": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "вход в аккаунт студента",
+                "operationId": "student_sign_in_api_students_sign_in_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentSignIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная регистрация студента",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StudentRegisterStatus"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Студент не найден"
+                    },
+                    "403": {
+                        "description": "Пользователь не авторизован"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/students/{student_id}": {
+            "patch": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "Обновление данных студента",
+                "operationId": "patch_student_api_students__student_id__patch",
+                "parameters": [
+                    {
+                        "name": "student_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Student Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentPatch"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Студент обновлён",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Student"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Студент не найден"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/students": {
+            "get": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "Получение студента по токену.",
+                "operationId": "get_student_api_students_get",
+                "responses": {
+                    "200": {
+                        "description": "Студент успешно получен",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Student"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Студент не найден"
+                    }
+                },
+                "security": [
+                    {
+                        "CustomHTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/mentors/{mentor_id}": {
+            "get": {
+                "tags": [
+                    "Mentor"
+                ],
+                "summary": "Получение ментора по ID.",
+                "operationId": "get_mentor_by_id_api_mentors__mentor_id__get",
+                "parameters": [
+                    {
+                        "name": "mentor_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Mentor Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ментор успешно получен",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mentor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ментор не найден"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mentors": {
+            "get": {
+                "tags": [
+                    "Mentor"
+                ],
+                "summary": "Поиск менторов по запросу.",
+                "operationId": "get_mentors_api_mentors_get",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1,
+                            "title": "Query"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список менторов по запросу получен",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Mentor"
+                                    },
+                                    "title": "Response 200 Get Mentors Api Mentors Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mentors/{mentor_id}/score": {
+            "post": {
+                "tags": [
+                    "Mentor"
+                ],
+                "summary": "Изменение рейтинга ментора.",
+                "operationId": "add_score_api_mentors__mentor_id__score_post",
+                "parameters": [
+                    {
+                        "name": "mentor_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Mentor Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_add_score_api_mentors__mentor_id__score_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Скор ментора успешно изменен",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Mentor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ментор не найден"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mentors/sign-up": {
+            "post": {
+                "tags": [
+                    "Mentor"
+                ],
+                "summary": "Регистрация ментора.",
+                "operationId": "sign_up_mentor_api_mentors_sign_up_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MentorRegister"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Ментор успешно зарегистрирован.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MentorRegisterStatus"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Ментор уже был зарегистрирован"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mentors/sign-in": {
+            "post": {
+                "tags": [
+                    "Mentor"
+                ],
+                "summary": "Вход ментора.",
+                "operationId": "sign_in_mentor_api_mentors_sign_in_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MentorSignIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Ментор успешно залогинился.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MentorRegisterStatus"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Неверные учётные данные"
+                    },
+                    "404": {
+                        "description": "Ментор не найден."
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/request": {
+            "post": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Создание заявки.",
+                "operationId": "make_request_api_request_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Заявка была успешно создана.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RequestCreateResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Заявка уже была подана."
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/request/{request_id}": {
+            "get": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Получение заявки по её ID.",
+                "operationId": "get_request_by_id_api_request__request_id__get",
+                "parameters": [
+                    {
+                        "name": "request_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Request Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Заявка успешно получена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Request"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Заявка не найдена."
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Изменение заявки",
+                "operationId": "patch_request_api_request__request_id__patch",
+                "parameters": [
+                    {
+                        "name": "request_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Request Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestPatch"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Заявка была успешно изменена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Request"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Заявка не была найдена"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/request/student/{student_id}": {
+            "get": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Получение всех заявок по студента по его ID.",
+                "operationId": "get_requests_by_student_id_api_request_student__student_id__get",
+                "parameters": [
+                    {
+                        "name": "student_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Student Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Заявки были успешно получены.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Request"
+                                    },
+                                    "title": "Response 200 Get Requests By Student Id Api Request Student  Student Id  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Заявка не была найдена"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/request/mentor/{mentor_id}": {
+            "get": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Получение всех заявок ментора",
+                "operationId": "get_requests_by_mentor_id_api_request_mentor__mentor_id__get",
+                "parameters": [
+                    {
+                        "name": "mentor_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Mentor Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Заявки были успешно получены.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Request"
+                                    },
+                                    "title": "Response 200 Get Requests By Mentor Id Api Request Mentor  Mentor Id  Get"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Заявка не была найдена"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/get-role/{instance_id}": {
+            "get": {
+                "tags": [
+                    "Support"
+                ],
+                "summary": "Получение роли (ментор/студент) по его ID",
+                "operationId": "get_role_by_id_api_get_role__instance_id__get",
+                "parameters": [
+                    {
+                        "name": "instance_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Instance Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Роль была успешно получена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Роль не найдена (объект не существует или не был зарегистрирован)"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/get-role": {
+            "get": {
+                "tags": [
+                    "Support"
+                ],
+                "summary": "Получение роли (ментор/студент) по его Токену",
+                "operationId": "get_role_by_token_api_get_role_get",
+                "responses": {
+                    "200": {
+                        "description": "Роль была успешно получена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RoleResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Роль не была найдена (объект не зарегистрирован)"
+                    }
+                },
+                "security": [
+                    {
+                        "CustomHTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/api/calendar": {
+            "post": {
+                "tags": [
+                    "Support"
+                ],
+                "summary": "Получение файла с календарём",
+                "operationId": "get_calendar_api_calendar_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CalendarModel"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Календарь успешно сгенерирован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CalendarResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации, неверная дата"
+                    }
+                }
+            }
+        },
+        "/api/stats/{mentor_id}": {
+            "get": {
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Получение статистики по ментору.",
+                "operationId": "get_mentor_stats_api_stats__mentor_id__get",
+                "parameters": [
+                    {
+                        "name": "mentor_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "title": "Mentor Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Статистика была успешно получена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MentorStats"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Статистика не была найдена."
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stats": {
+            "get": {
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Получение статистики по всему серверу",
+                "operationId": "get_stats_api_stats_get",
+                "responses": {
+                    "200": {
+                        "description": "Статистика была успешно получена",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminStats"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Статистика не была найдена."
+                    }
+                }
+            }
+        },
+        "/api/admin/sign-up": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Регистрация админа",
+                "operationId": "register_admin_api_admin_sign_up_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Успешная регистрация админа",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminRegisterStatus"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    }
+                }
+            }
+        },
+        "/api/admin/sign-in": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Регистрация админа",
+                "operationId": "login_admin_api_admin_sign_in_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminCreate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная регистрация админа",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminRegisterStatus"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Админ не найден"
+                    },
+                    "403": {
+                        "description": "Неверные данные для входа"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации"
+                    }
+                }
+            }
+        },
+        "/api/ping": {
+            "get": {
+                "tags": [
+                    "Support"
+                ],
+                "summary": "Метод PING, проверка на работоспособность",
+                "operationId": "ping_api_ping_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AdminCreate": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email",
+                        "description": "Емейл админа"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password",
+                        "description": "Пароль админа"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "title": "AdminCreate"
+            },
+            "AdminRegisterStatus": {
+                "properties": {
+                    "status": {
+                        "type": "boolean",
+                        "title": "Status",
+                        "description": "Статус добавления true/false",
+                        "examples": [
+                            true,
+                            false
+                        ]
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message",
+                        "description": "Message добавления",
+                        "default": "ok"
+                    },
+                    "token": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Token",
+                        "description": "JWT token"
+                    },
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id",
+                        "description": "UUID сущности"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status"
+                ],
+                "title": "AdminRegisterStatus"
+            },
+            "AdminStats": {
+                "properties": {
+                    "total_students": {
+                        "type": "integer",
+                        "title": "Total Students",
+                        "description": "Полное количество студентов"
+                    },
+                    "total_mentors": {
+                        "type": "integer",
+                        "title": "Total Mentors",
+                        "description": "Полное количество менторов"
+                    },
+                    "accepted": {
+                        "type": "integer",
+                        "title": "Accepted",
+                        "description": "Полное количество одобренных заявок"
+                    },
+                    "refused": {
+                        "type": "integer",
+                        "title": "Refused",
+                        "description": "Полное количество отклоненных заявок"
+                    },
+                    "pending": {
+                        "type": "integer",
+                        "title": "Pending",
+                        "description": "Количество ожидающих заявок"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "total_students",
+                    "total_mentors",
+                    "accepted",
+                    "refused",
+                    "pending"
+                ],
+                "title": "AdminStats"
+            },
+            "Body_add_score_api_mentors__mentor_id__score_post": {
+                "properties": {
+                    "score": {
+                        "type": "integer",
+                        "maximum": 10.0,
+                        "minimum": 0.0,
+                        "title": "Score"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "score"
+                ],
+                "title": "Body_add_score_api_mentors__mentor_id__score_post"
+            },
+            "CalendarModel": {
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "title": "Date",
+                        "description": "Дата в формате YYYY-MM-DD"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "date"
+                ],
+                "title": "CalendarModel"
+            },
+            "CalendarResponse": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "title": "File"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "title": "CalendarResponse"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Mentor": {
+                "properties": {
+                    "mentor_id": {
+                        "type": "string",
+                        "title": "Mentor Id",
+                        "description": "ID ментора"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name",
+                        "description": "Имя ментора"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email",
+                        "description": "Email ментора"
+                    },
+                    "telegram": {
+                        "type": "string",
+                        "title": "Telegram",
+                        "description": "Телеграм ментора"
+                    },
+                    "expertise": {
+                        "type": "string",
+                        "title": "Expertise",
+                        "description": "Опыт ментора"
+                    },
+                    "bio": {
+                        "type": "string",
+                        "title": "Bio",
+                        "description": "О себе"
+                    },
+                    "score": {
+                        "type": "integer",
+                        "title": "Score",
+                        "description": "Рейтинг ментора",
+                        "default": 0
+                    },
+                    "tags": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Tags",
+                        "description": "Теги ментора"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "mentor_id",
+                    "name",
+                    "email",
+                    "telegram",
+                    "expertise",
+                    "bio",
+                    "tags"
+                ],
+                "title": "Mentor"
+            },
+            "MentorRegister": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name",
+                        "description": "Имя ментора"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email",
+                        "description": "Email ментора"
+                    },
+                    "telegram": {
+                        "type": "string",
+                        "title": "Telegram",
+                        "description": "Телеграм ментора"
+                    },
+                    "expertise": {
+                        "type": "string",
+                        "title": "Expertise",
+                        "description": "Опыт ментора"
+                    },
+                    "bio": {
+                        "type": "string",
+                        "title": "Bio",
+                        "description": "О себе"
+                    },
+                    "score": {
+                        "type": "integer",
+                        "title": "Score",
+                        "description": "Рейтинг ментора",
+                        "default": 0
+                    },
+                    "tags": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Tags",
+                        "description": "Теги ментора"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "name",
+                    "email",
+                    "telegram",
+                    "expertise",
+                    "bio",
+                    "tags"
+                ],
+                "title": "MentorRegister"
+            },
+            "MentorRegisterStatus": {
+                "properties": {
+                    "status": {
+                        "type": "boolean",
+                        "title": "Status",
+                        "description": "Статус добавления true/false"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message",
+                        "description": "Message добавления",
+                        "default": "ok"
+                    },
+                    "token": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Token",
+                        "description": "JWT token"
+                    },
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id",
+                        "description": "UUID сущности"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status"
+                ],
+                "title": "MentorRegisterStatus"
+            },
+            "MentorSignIn": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "email"
+                ],
+                "title": "MentorSignIn"
+            },
+            "MentorStats": {
+                "properties": {
+                    "accepted": {
+                        "type": "integer",
+                        "title": "Accepted",
+                        "description": "Сколько заявок было принято"
+                    },
+                    "refused": {
+                        "type": "integer",
+                        "title": "Refused",
+                        "description": "Сколько заявок было отклнонено"
+                    },
+                    "pending": {
+                        "type": "integer",
+                        "title": "Pending",
+                        "description": "Сколько заявок ожидает"
+                    },
+                    "total": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Total",
+                        "description": "Сколько всего заявок",
+                        "default": 0
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accepted",
+                    "refused",
+                    "pending"
+                ],
+                "title": "MentorStats"
+            },
+            "Request": {
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Request Id",
+                        "description": "ID заявки"
+                    },
+                    "mentor_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Mentor Id",
+                        "description": "ID ментора"
+                    },
+                    "student_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Student Id",
+                        "description": "ID клиента"
+                    },
+                    "query": {
+                        "type": "string",
+                        "title": "Query",
+                        "description": "Вопрос пользователя"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/Status",
+                        "description": "Статус заявки pending / accepted / refused",
+                        "default": "PENDING"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "yy-mm-dd",
+                        "title": "Date",
+                        "description": "Дата в формате YY-MM-DD"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "request_id",
+                    "mentor_id",
+                    "student_id",
+                    "query",
+                    "date"
+                ],
+                "title": "Request"
+            },
+            "RequestCreate": {
+                "properties": {
+                    "mentor_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Mentor Id",
+                        "description": "ID ментора"
+                    },
+                    "student_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Student Id",
+                        "description": "ID клиента"
+                    },
+                    "query": {
+                        "type": "string",
+                        "title": "Query",
+                        "description": "Вопрос пользователя"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/Status",
+                        "description": "Статус заявки pending / accepted / refused",
+                        "default": "PENDING"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "yy-mm-dd",
+                        "title": "Date",
+                        "description": "Дата в формате YY-MM-DD"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "mentor_id",
+                    "student_id",
+                    "query",
+                    "date"
+                ],
+                "title": "RequestCreate"
+            },
+            "RequestCreateResponse": {
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "title": "Request Id",
+                        "description": "ID заявки"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "request_id"
+                ],
+                "title": "RequestCreateResponse"
+            },
+            "RequestPatch": {
+                "properties": {
+                    "query": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Query",
+                        "description": "Запрос юзера"
+                    },
+                    "status": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Status",
+                        "description": "Статус заявки"
+                    },
+                    "date": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "format": "yy-mm-dd",
+                        "title": "Date",
+                        "description": "Дата в формате YY-MM-DD"
+                    }
+                },
+                "type": "object",
+                "title": "RequestPatch"
+            },
+            "RoleResponse": {
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "title": "Role",
+                        "description": "Роль объекта в системе"
+                    },
+                    "id": {
+                        "type": "string",
+                        "title": "Id",
+                        "description": "UUID объекта в системе"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "role",
+                    "id"
+                ],
+                "title": "RoleResponse"
+            },
+            "Status": {
+                "type": "string",
+                "enum": [
+                    "ACCEPTED",
+                    "REFUSED",
+                    "PENDING"
+                ],
+                "title": "Status"
+            },
+            "Student": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "telegram": {
+                        "type": "string",
+                        "title": "Telegram"
+                    },
+                    "age": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 100.0,
+                                "minimum": 0.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Age"
+                    },
+                    "bio": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bio"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "email",
+                    "name",
+                    "telegram"
+                ],
+                "title": "Student",
+                "description": "Моделька для студента"
+            },
+            "StudentCreate": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "telegram": {
+                        "type": "string",
+                        "title": "Telegram"
+                    },
+                    "age": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 100.0,
+                                "minimum": 0.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Age"
+                    },
+                    "bio": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bio"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "email",
+                    "name",
+                    "telegram"
+                ],
+                "title": "StudentCreate"
+            },
+            "StudentPatch": {
+                "properties": {
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Name",
+                        "description": "Имя студента"
+                    },
+                    "password": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Password",
+                        "description": "Пароль с аккаунту студента"
+                    },
+                    "telegram": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Telegram",
+                        "description": "Телеграм студента"
+                    },
+                    "age": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Age",
+                        "description": "Возраст"
+                    },
+                    "bio": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Bio",
+                        "description": "Био студента"
+                    }
+                },
+                "type": "object",
+                "title": "StudentPatch",
+                "description": "Модель для изменения параметров студента"
+            },
+            "StudentRegisterStatus": {
+                "properties": {
+                    "status": {
+                        "type": "boolean",
+                        "title": "Status",
+                        "description": "Статус добавления true/false"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message",
+                        "description": "Сообщение",
+                        "default": "ok"
+                    },
+                    "token": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Token",
+                        "description": "JWT token"
+                    },
+                    "id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id",
+                        "description": "UUID в строковом формате"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status"
+                ],
+                "title": "StudentRegisterStatus"
+            },
+            "StudentSignIn": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "email"
+                ],
+                "title": "StudentSignIn"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        },
+        "securitySchemes": {
+            "CustomHTTPBearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

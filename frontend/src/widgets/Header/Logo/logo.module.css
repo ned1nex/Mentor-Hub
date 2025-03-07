@@ -1,0 +1,18 @@
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--foreground);
+    transition: color 0.3s;
+}
+
+.logoAccent {
+    color: var(--primary);
+}
+
+.logo:hover {
+    color: var(--fg-alt);
+}
+
+.logoAccent:hover {
+    color: var(--secondary);
+}

@@ -1,0 +1,27 @@
+.action {
+    color: var(--foreground);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.action:hover {
+    color: var(--secondary);
+}
+
+.negative:hover {
+    color: var(--negative);
+}
+
+.alt {
+    color: var(--fg-alt);
+}
+.alt:hover {
+    color: var(--foreground);
+}
+
+.emphasized {
+    color: var(--primary);
+}
+.emphasized:hover {
+    color: var(--secondary);
+}

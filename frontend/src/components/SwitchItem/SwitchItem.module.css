@@ -1,0 +1,14 @@
+.wrapper {
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 60px;
+    font-size: 14px;
+    color: var(--foreground);
+    background: none;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background 0.3s,
+        color 0.3s;
+}

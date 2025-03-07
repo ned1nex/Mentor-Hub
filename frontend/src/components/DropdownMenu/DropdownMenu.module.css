@@ -1,0 +1,82 @@
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+/* Кнопка выпадающего меню */
+.menuButton {
+    background-color: var(--primary); /* Оранжевый */
+    color: var(--background); /* Фон, заданный в переменной */
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.menuButton:hover {
+    background-color: var(--secondary); /* Более тёмный оранжевый */
+}
+
+/* Выпадающий список */
+.menuItems {
+    position: absolute;
+    right: 0;
+    margin-top: 8px;
+    background-color: var(--bg-80); /* Темный фон, подходящий для оранжевого меню */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    width: 220px;
+}
+
+/* Элементы меню */
+.menuItem {
+    display: block;
+    padding: 10px 16px;
+    color: var(--foreground);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.menuItem:hover,
+.active {
+    background-color: var(--bg-70);
+}
+
+/* Анимация появления/скрытия */
+.enter {
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.enterFrom {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.enterTo {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.leave {
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease;
+}
+
+.leaveFrom {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.leaveTo {
+    opacity: 0;
+    transform: scale(0.95);
+}

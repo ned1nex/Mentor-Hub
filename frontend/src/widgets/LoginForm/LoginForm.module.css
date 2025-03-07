@@ -1,0 +1,75 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.titleBlock {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.subtitle {
+    font-size: 14px;
+    color: #a0a0a0;
+}
+.inputBlock {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+.inputLabel {
+    font-size: 14px;
+    color: var(--foreground);
+}
+.input {
+    padding: 10px;
+    border: 1px solid #3a3a3a;
+    background-color: #2a2a2a;
+    color: var(--foreground);
+    border-radius: 5px;
+    &:focus {
+        outline: none;
+    }
+}
+.btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #ff7300;
+    border: none;
+    border-radius: 5px;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.linkBlock {
+    display: flex;
+    justify-content: space-between;
+}
+.link {
+    color: #ff7300;
+}
+
+.errorText {
+    color: var(--negative);
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.loaderWrapper {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}

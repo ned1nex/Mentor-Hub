@@ -1,0 +1,156 @@
+.card {
+  background: var(--bg-90);
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  color: var(--foreground);
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative; /* добавлено для позиционирования блока совместимости */
+}
+
+.card:hover {
+  border: 1px solid var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 15px rgba(255, 140, 0, 0.2);
+  cursor: pointer;
+}
+
+.compatibility {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: var(--background);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 1200px) {
+  .compatibility {
+    padding: 8px 16px;
+    font-size: 22px;
+  }
+}
+
+
+.avatarWrapper {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover .avatar {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 10px rgba(255, 140, 0, 0.5);
+}
+
+.header {
+  text-align: left;
+  width: 100%;
+}
+
+.name {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+}
+
+.expertise {
+  display: inline-block;
+  margin-top: 5px;
+  background: var(--bg-70);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+.rating {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.description {
+  font-size: 16px;
+  color: var(--fg-alt);
+  text-align: left;
+  margin: 10px 0;
+}
+
+.skills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.skill {
+  background: var(--primary);
+  color: var(--background);
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 20px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.skill:hover {
+  transform: translateY(-3px);
+  background: var(--secondary);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.requests {
+  font-size: 16px;
+  color: var(--fg-alt);
+}
+
+.moreBtn {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 12px;
+  transition: background 0.3s, color 0.3s, transform 0.3s ease;
+}
+
+.moreBtn:hover {
+  background: var(--primary);
+  color: var(--background);
+  transform: scale(1.05);
+}
+
+@media (min-width: 1200px) {
+  .moreBtn {
+    padding: 16px 30px;
+    font-size: 16px;
+  }
+}
